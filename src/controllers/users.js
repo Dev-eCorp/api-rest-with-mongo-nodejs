@@ -1,35 +1,23 @@
-const express = require('express');
+const express = require("express");
+const User = require("../models/users");
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
-const getAllUsers = (req, res) => {
-
-    const users = [
-        {
-            id: 1,
-            name: 'Fernando'
-        },
-        {
-            id: 2,
-            name: 'Marta'
-        },
-    ]
-
+const getAllUsers = async (req, res) => {
+    const users = await User.find();
     res.json(users);
 };
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
 
     const user = req.body;
-    user.id = 86546;
+    user = await User.create(user);
 
     const result = {
         message: 'User created',
@@ -39,16 +27,16 @@ const createUser = (req, res) => {
 };
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
 
     const { id } = req.params;
     const user = req.body;
+    user._id = id;
 
-    user.id = id;
+    user = await User.updateOne(user);
 
     const result = {
         message: 'User updated',
@@ -58,9 +46,9 @@ const updateUser = (req, res) => {
 };
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
 const updatePartialUser = (req, res) => {
     const result = {
@@ -70,13 +58,16 @@ const updatePartialUser = (req, res) => {
 };
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
 
     const { id } = req.params;
+    const user = await User.findById(id);
+    user.remove();
+
     //const id = req.params.id;
     const result = {
         message: `User with id: ${id} deleted`
@@ -90,4 +81,4 @@ module.exports = {
     updateUser,
     updatePartialUser,
     deleteUser
-}
+};

@@ -1,13 +1,17 @@
 const express = require("express");
-const User = require("../models/users");
+const userService = require("../services/userService");
 
 /**
  * @param {express.Request} req
  * @param {express.Response} res
  */
 const getAllUsers = async (req, res) => {
-    const users = await User.find();
-    res.json(users);
+    try {
+        const users = await userService.findAll();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 };
 
 /**
@@ -15,15 +19,17 @@ const getAllUsers = async (req, res) => {
  * @param {express.Response} res
  */
 const createUser = async (req, res) => {
-
-    const user = req.body;
-    user = await User.create(user);
-
-    const result = {
-        message: 'User created',
-        user
+    try {
+        let user = req.body;
+        user = await userService.save(user);
+        const result = {
+            message: 'User created',
+            user
+        }
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(500).json(error);
     }
-    res.status(201).json(result);
 };
 
 /**
@@ -31,54 +37,57 @@ const createUser = async (req, res) => {
  * @param {express.Response} res
  */
 const updateUser = async (req, res) => {
-
-    const { id } = req.params;
-    const user = req.body;
-    user._id = id;
-
-    user = await User.updateOne(user);
-
-    const result = {
-        message: 'User updated',
-        user
+    try {
+        const { id } = req.params;
+        const user = req.body;
+        const updatedUser = await userService.update(id, user);
+        const result = {
+            message: 'User updated',
+            updatedUser
+        }
+        res.json(result);
+    } catch (error) {
+        res.status(500).json(error);
     }
-    res.json(result);
 };
 
 /**
- *
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const updatePartialUser = (req, res) => {
-    const result = {
-        message: 'User updated with patch'
+const getUserById = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const user = await userService.findById(id);
+        res.json(user);
+    } catch (error) {
+        res.status(500).json(error)
     }
-    res.json(result);
 };
 
 /**
- *
  * @param {express.Request} req
  * @param {express.Response} res
  */
 const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedUser = await userService.remove(id);
 
-    const { id } = req.params;
-    const user = await User.findById(id);
-    user.remove();
-
-    //const id = req.params.id;
-    const result = {
-        message: `User with id: ${id} deleted`
+        const result = {
+            message: `User with id: ${id} deleted`,
+            deletedUser
+        }
+        res.json(result);
+    } catch (error) {
+        res.status(500).json(error);
     }
-    res.json(result);
 };
 
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
-    updatePartialUser,
+    getUserById,
     deleteUser
 };

@@ -5,8 +5,8 @@ const findById = async (id) => {
     return repository.findById(id);
 }
 
-const findAll = async () => {
-    return repository.findAll();
+const findAll = async (filter, options) => {
+    return await repository.findAllWithPagination(filter, options);
 }
 
 const save = async (user) => {

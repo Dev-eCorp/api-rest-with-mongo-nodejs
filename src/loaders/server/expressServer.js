@@ -7,20 +7,15 @@ const logger = require('../logger');
 class ExpressServer {
 
     constructor() {
-
         this.app = express();
         this.port = config.port;
         this.basePathUser = `${config.api.prefix}/users`;
 
         this._middlewares();
-        
         this._swaggerConfig();
-
         this._routes();
-
         this._notFound();
         this._errorHandler();
-
     }
 
     _middlewares() {
@@ -29,7 +24,6 @@ class ExpressServer {
     }
 
     _routes() {
-
         this.app.head("/status", (req, res) => {
             res.status(200).end();
         });
@@ -64,8 +58,8 @@ class ExpressServer {
 
     _swaggerConfig(){
         this.app.use(
-            config.swagger.path, 
-            swaggerUi.serve, 
+            config.swagger.path,
+            swaggerUi.serve,
             swaggerUi.setup(require('../swagger/swagger.json'))
         );
     }
@@ -79,7 +73,6 @@ class ExpressServer {
             }
         });
     }
-
 }
 
 module.exports = ExpressServer;

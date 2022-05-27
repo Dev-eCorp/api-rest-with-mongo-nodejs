@@ -8,31 +8,31 @@
       "email": "fervaldes11@gmail.com"
     }
   },
-  
+
   "servers":[
     {
       "url":"http://localhost:4000/api/v1",
-      "description": "Desarrollo"  
+      "description": "Desarrollo" 
     },
     {
       "url":"https://node-06-restserver.herokuapp.com/api/v1",
-      "description": "Producción"  
+      "description": "Producción" 
     } 
   ],
-  "tags": [    
+  "tags": [
     {
       "name": "users",
       "description": "Operations about users."
     }
   ],
-  "paths": {    
+  "paths": {
     "/users/": {
       "get": {
         "tags": [
           "users"
         ],
         "summary": "Get a list of all existing users.",
-        "description": "",             
+        "description": "",
         "responses": {
           "200": {
             "description": "The array of users in JSON format.",
@@ -41,7 +41,7 @@
                 "schema":{
                   "type": "array",
                   "items":{
-                    "$ref": "#/components/schemas/User"                    
+                    "$ref": "#/components/schemas/User"
                   }
                 }
               }
@@ -77,8 +77,8 @@
           "users"
         ],
         "summary": "Update an existing user by providing the id.",
-        "description": "",           
-        "parameters":[          
+        "description": "",
+        "parameters":[
           {
             "name": "id",
             "in": "path",
@@ -87,7 +87,7 @@
             "schema": {
               "type":"integer"
             }
-          }          
+          }
         ],
         "requestBody": {
           "content": {
@@ -97,7 +97,7 @@
               }
             }
           }
-        }, 
+        },
         "responses": {
           "200": {
             "description": "The user updated",
@@ -105,9 +105,9 @@
               "application/json":{
                 "schema":{
                   "type": "object",
-                  "$ref": "#/components/schemas/User" 
+                  "$ref": "#/components/schemas/User"
                 }
-              }              
+              }
             }
           }
         }
@@ -118,7 +118,7 @@
         ],
         "summary": "Delete an existing user by providing the id.",
         "description": "",
-        "parameters":[          
+        "parameters":[
           {
             "name": "id",
             "in": "path",
@@ -127,8 +127,8 @@
             "schema": {
               "type":"integer"
             }
-          }          
-        ],     
+          }
+        ],
         "responses": {
           "200": {
             "description": "User deleted."
@@ -147,12 +147,12 @@
         "properties": {
           "id":{
             "description": "The user id.",
-            "type": "integer",          
+            "type": "integer",
             "example": "3"
           },
           "name":{
             "description": "The user name.",
-            "type":"string",          
+            "type":"string",
             "example":"Adrian"
           }
         }

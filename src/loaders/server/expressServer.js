@@ -10,6 +10,7 @@ class ExpressServer {
         this.app = express();
         this.port = config.port;
         this.basePathUser = `${config.api.prefix}/users`;
+        this.basePathAuth = `${config.api.prefix}/auth`;
 
         this._middlewares();
         this._swaggerConfig();
@@ -29,6 +30,7 @@ class ExpressServer {
         });
 
         this.app.use(this.basePathUser, require('../../routes/users'));
+        this.app.use(this.basePathAuth, require('../../routes/auth'));
     }
 
     _notFound() {
@@ -49,7 +51,8 @@ class ExpressServer {
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    detail: err.data
                 }
             }
             res.status(code).json(body);

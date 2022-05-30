@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src",
-    "start": "node src"
+    "start": "node src",
+    "test": "node collection_postman/newman"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,8 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "newman": "^5.3.2",
+    "newman-reporter-htmlextra": "^1.22.9",
     "nodemon": "^2.0.7"
   }
 }

@@ -15,7 +15,7 @@
       "description": "Development"
     },
     {
-      "url": "",
+      "url": "https://crud-users-mongo.herokuapp.com/api/v1",
       "description": "Production"
     }
   ],

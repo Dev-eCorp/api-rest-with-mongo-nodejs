@@ -75,7 +75,7 @@ class ExpressServer {
     }
 
     async start() {
-        this.app.listen(this.port, (error) => {
+        this.app.listen(this.port || 3000, (error) => {
             if(error) {
                 logger.error(err);
                 process.exit(1);

@@ -11,9 +11,9 @@ module.exports = async () => {
   logger.info("Express Loaded");
 
   server.start();
-  logger.info(`#######################################
-    Server listening on port: ${config.port}
-    #######################################
+  logger.info(`###############################
+      Server listening on port: ${config.port}
+      ###############################
   `);
 
 }
